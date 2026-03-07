@@ -10,6 +10,7 @@
         <router-link to="/tasks" class="nav-link">📋 任务</router-link>
         <router-link to="/ranking" class="nav-link">🏆 排名</router-link>
         <router-link to="/code-review" class="nav-link">👀 审核</router-link>
+        <router-link to="/chat" class="nav-link">💬 沟通</router-link>
       </div>
     </nav>
     <main class="main-content">
