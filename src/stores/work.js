@@ -1,13 +1,43 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
+// GitHub Pages 基础路径
+const BASE_URL = import.meta.env.BASE_URL || '/'
+
 export const useWorkStore = defineStore('work', () => {
-  // 成员状态
+  // 成员状态（初始值，会被真实状态覆盖）
   const members = ref([
-    { id: 1, name: '小七', avatar: '🤖', status: 'online', points: 85, tasksCompleted: 12, role: 'member' },
-    { id: 2, name: '柠檬', avatar: '🍋', status: 'busy', points: 72, tasksCompleted: 9, role: 'member' },
-    { id: 3, name: '尼克', avatar: '🦀', status: 'online', points: 95, tasksCompleted: 15, role: 'leader' },
+    { id: 1, name: '小七', avatar: '🤖', status: 'offline', points: 85, tasksCompleted: 12, role: 'member', currentTask: '' },
+    { id: 2, name: '柠檬', avatar: '🍋', status: 'offline', points: 72, tasksCompleted: 9, role: 'member', currentTask: '' },
+    { id: 3, name: '尼克', avatar: '🦀', status: 'online', points: 95, tasksCompleted: 15, role: 'leader', currentTask: '项目管理' },
   ])
+
+  // 最后更新时间
+  const lastStatusUpdate = ref('')
+
+  // 从 status.json 获取真实状态
+  async function fetchRealStatus() {
+    try {
+      const res = await fetch(`${BASE_URL}status.json?t=${Date.now()}`)
+      if (!res.ok) return
+      const data = await res.json()
+      
+      if (data.members) {
+        data.members.forEach(realMember => {
+          const member = members.value.find(m => m.id === realMember.id)
+          if (member) {
+            member.status = realMember.status
+            member.currentTask = realMember.currentTask || ''
+          }
+        })
+      }
+      if (data.updatedAtLocal) {
+        lastStatusUpdate.value = data.updatedAtLocal
+      }
+    } catch (e) {
+      console.log('无法获取实时状态，使用默认状态')
+    }
+  }
 
   // 任务列表
   const tasks = ref([
@@ -163,6 +193,7 @@ export const useWorkStore = defineStore('work', () => {
     tasks,
     codeReviews,
     chatMessages,
+    lastStatusUpdate,
     sortedMembers,
     taskStats,
     onlineCount,
@@ -172,5 +203,6 @@ export const useWorkStore = defineStore('work', () => {
     addChatMessage,
     getMemberById,
     getMemberAvatar,
+    fetchRealStatus,
   }
 })

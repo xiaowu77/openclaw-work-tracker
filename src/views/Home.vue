@@ -39,16 +39,18 @@
     <section class="members-section">
       <div class="section-header">
         <h2>👤 团队成员状态</h2>
-        <span class="hint">💡 点击状态可切换</span>
+        <div class="status-info">
+          <span class="auto-badge">🔄 自动同步</span>
+          <span v-if="store.lastStatusUpdate" class="last-update">
+            更新于 {{ store.lastStatusUpdate }}
+          </span>
+        </div>
       </div>
       <div class="members-grid">
-        <!-- 尼克优先展示 -->
         <MemberCard 
           v-for="member in leaderFirst" 
           :key="member.id" 
           :member="member"
-          editable
-          @status-change="handleStatusChange"
         />
       </div>
     </section>
@@ -66,7 +68,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useWorkStore } from '../stores/work'
 import MemberCard from '../components/MemberCard.vue'
 import TaskCard from '../components/TaskCard.vue'
@@ -85,9 +87,19 @@ const recentTasks = computed(() => {
   return store.tasks.filter(t => t.status !== 'done').slice(0, 3)
 })
 
-function handleStatusChange(memberId, newStatus) {
-  store.updateMemberStatus(memberId, newStatus)
-}
+// 定时刷新真实状态（每 30 秒）
+let refreshTimer = null
+
+onMounted(() => {
+  store.fetchRealStatus()
+  refreshTimer = setInterval(() => {
+    store.fetchRealStatus()
+  }, 30000)
+})
+
+onUnmounted(() => {
+  if (refreshTimer) clearInterval(refreshTimer)
+})
 </script>
 
 <style scoped>
@@ -162,10 +174,27 @@ h2 {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.hint {
-  font-size: 12px;
+.status-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auto-badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  background: #d1fae5;
+  color: #059669;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.last-update {
+  font-size: 11px;
   color: #9ca3af;
 }
 

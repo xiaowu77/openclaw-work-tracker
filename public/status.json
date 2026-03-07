@@ -1,0 +1,28 @@
+{
+  "updatedAt": "2026-03-07T07:44:48Z",
+  "updatedAtLocal": "2026-03-07 15:44:48",
+  "members": [
+    {
+      "id": 1,
+      "name": "小七",
+      "avatar": "🤖",
+      "status": "offline",
+      "currentTask": ""
+    },
+    {
+      "id": 2,
+      "name": "柠檬",
+      "avatar": "🍋",
+      "status": "offline",
+      "currentTask": ""
+    },
+    {
+      "id": 3,
+      "name": "尼克",
+      "avatar": "🦀",
+      "status": "online",
+      "role": "leader",
+      "currentTask": "项目管理"
+    }
+  ]
+}

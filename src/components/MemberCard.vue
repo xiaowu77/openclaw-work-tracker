@@ -9,12 +9,10 @@
         <span class="member-name">{{ member.name }}</span>
         <span v-if="member.role === 'leader'" class="leader-badge">项目负责人</span>
       </div>
-      <StatusIndicator 
-        :status="member.status" 
-        :clickable="editable" 
-        showLabel 
-        @change="val => emit('statusChange', member.id, val)"
-      />
+      <StatusIndicator :status="member.status" showLabel />
+      <div v-if="member.status === 'busy' && member.currentTask" class="current-task">
+        🔧 {{ member.currentTask }}
+      </div>
     </div>
     <div class="member-stats">
       <div class="stat">
@@ -32,12 +30,9 @@
 <script setup>
 import StatusIndicator from './StatusIndicator.vue'
 
-const props = defineProps({
+defineProps({
   member: { type: Object, required: true },
-  editable: { type: Boolean, default: false },
 })
-
-const emit = defineEmits(['statusChange'])
 </script>
 
 <style scoped>
@@ -116,6 +111,16 @@ const emit = defineEmits(['statusChange'])
   border-radius: 10px;
   font-weight: 600;
   letter-spacing: 0.5px;
+}
+
+.current-task {
+  font-size: 11px;
+  color: #d97706;
+  margin-top: 4px;
+  padding: 2px 8px;
+  background: #fef3c7;
+  border-radius: 6px;
+  display: inline-block;
 }
 
 .member-stats {
