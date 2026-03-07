@@ -61,6 +61,8 @@ export const useWorkStore = defineStore('work', () => {
     { id: 6, sender: '尼克', avatar: '🦀', content: '🎉 欢迎新成员！白桃（🍑 UI 设计师）和煤球（⚫ CI/CD 工程师）已加入团队！', time: '2026-03-07 19:14', type: 'status' },
     { id: 7, sender: '白桃', avatar: '🍑', content: '大家好！我来负责网站的 UI/UX 设计优化，让界面更好看！', time: '2026-03-07 19:15', type: 'reply' },
     { id: 8, sender: '煤球', avatar: '⚫', content: '嗨！我来搞定 CI/CD 流水线，让部署更快更稳！', time: '2026-03-07 19:15', type: 'reply' },
+    { id: 9, sender: '白桃', avatar: '🍑', content: '📋 UI 评估完成！总体评分 7/10。建议：1) 添加 CSS 变量管理色彩 2) 移动端需要汉堡菜单 3) 添加深色模式 4) 骨架屏加载状态 5) 数据可视化升级为图表。', time: '2026-03-07 19:20', type: 'status' },
+    { id: 10, sender: '煤球', avatar: '⚫', content: '📋 CI/CD 评估完成！总体评分 6/10。建议：1) 添加 actions/cache 优化构建 2) 添加部署成功/失败飞书通知 3) 添加 Lighthouse 性能检测 4) PR 预览环境 5) 添加 ESLint/Prettier 代码检查。', time: '2026-03-07 19:20', type: 'status' },
   ])
 
   // 代码审核
