@@ -4,19 +4,19 @@ import { ref, computed } from 'vue'
 export const useWorkStore = defineStore('work', () => {
   // 成员状态
   const members = ref([
-    { id: 1, name: '小七', avatar: '🤖', status: 'online', points: 85, tasksCompleted: 12 },
-    { id: 2, name: '柠檬', avatar: '🍋', status: 'busy', points: 72, tasksCompleted: 9 },
-    { id: 3, name: '尼克', avatar: '🦀', status: 'online', points: 95, tasksCompleted: 15 },
+    { id: 1, name: '小七', avatar: '🤖', status: 'online', points: 85, tasksCompleted: 12, role: 'member' },
+    { id: 2, name: '柠檬', avatar: '🍋', status: 'busy', points: 72, tasksCompleted: 9, role: 'member' },
+    { id: 3, name: '尼克', avatar: '🦀', status: 'online', points: 95, tasksCompleted: 15, role: 'leader' },
   ])
 
   // 任务列表
   const tasks = ref([
-    { id: 1, title: '开发工作网站', status: 'doing', priority: 'P1', assignee: '尼克', progress: 60 },
-    { id: 2, title: '优化 AI 视频生成流程', status: 'pending', priority: 'P1', assignee: '小七', progress: 0 },
-    { id: 3, title: '整理项目文档', status: 'done', priority: 'P2', assignee: '柠檬', progress: 100 },
-    { id: 4, title: '部署 OpenClaw Docker 环境', status: 'done', priority: 'P1', assignee: '小七', progress: 100 },
-    { id: 5, title: '设计变现方案', status: 'pending', priority: 'P0', assignee: '尼克', progress: 0 },
-    { id: 6, title: '调研视频生成工具', status: 'doing', priority: 'P2', assignee: '柠檬', progress: 40 },
+    { id: 1, title: '开发工作网站', status: 'doing', priority: 'P1', assignee: '尼克', assigneeId: 3, progress: 60 },
+    { id: 2, title: '优化 AI 视频生成流程', status: 'pending', priority: 'P1', assignee: '小七', assigneeId: 1, progress: 0 },
+    { id: 3, title: '整理项目文档', status: 'done', priority: 'P2', assignee: '柠檬', assigneeId: 2, progress: 100 },
+    { id: 4, title: '部署 OpenClaw Docker 环境', status: 'done', priority: 'P1', assignee: '小七', assigneeId: 1, progress: 100 },
+    { id: 5, title: '设计变现方案', status: 'pending', priority: 'P0', assignee: '尼克', assigneeId: 3, progress: 0 },
+    { id: 6, title: '调研视频生成工具', status: 'doing', priority: 'P2', assignee: '柠檬', assigneeId: 2, progress: 40 },
   ])
 
   // 聊天记录
@@ -30,9 +30,76 @@ export const useWorkStore = defineStore('work', () => {
 
   // 代码审核
   const codeReviews = ref([
-    { id: 1, title: 'feat: 初始化 Vue 项目', author: '尼克', status: 'pending', repo: 'openclaw-work-tracker' },
-    { id: 2, title: 'fix: 修复任务检查脚本', author: '小七', status: 'approved', repo: 'openclaw-config' },
-    { id: 3, title: 'feat: 添加定时任务', author: '柠檬', status: 'pending', repo: 'openclaw-config' },
+    { 
+      id: 1, 
+      title: 'feat: 初始化 Vue 3 工作台项目', 
+      author: '尼克', 
+      authorId: 3,
+      authorAvatar: '🦀',
+      status: 'approved', 
+      repo: 'openclaw-work-tracker',
+      description: '搭建 Vue 3 + Vite 项目，实现首页、任务、排名、审核页面',
+      files: 22,
+      additions: 2776,
+      deletions: 0,
+      createdAt: '2026-03-07',
+    },
+    { 
+      id: 2, 
+      title: 'feat: 添加任务沟通聊天框', 
+      author: '尼克', 
+      authorId: 3,
+      authorAvatar: '🦀',
+      status: 'approved', 
+      repo: 'openclaw-work-tracker',
+      description: '新增沟通页面，支持消息发送、类型选择、实时显示',
+      files: 4,
+      additions: 345,
+      deletions: 0,
+      createdAt: '2026-03-07',
+    },
+    { 
+      id: 3, 
+      title: 'fix: 修复任务检查脚本超时问题', 
+      author: '小七', 
+      authorId: 1,
+      authorAvatar: '🤖',
+      status: 'approved', 
+      repo: 'openclaw-config',
+      description: '增加超时时间，优化错误处理逻辑',
+      files: 2,
+      additions: 45,
+      deletions: 12,
+      createdAt: '2026-03-05',
+    },
+    { 
+      id: 4, 
+      title: 'feat: 添加 launchd 定时任务配置', 
+      author: '柠檬', 
+      authorId: 2,
+      authorAvatar: '🍋',
+      status: 'pending', 
+      repo: 'openclaw-config',
+      description: '配置每5分钟自动检查任务的 launchd plist 文件',
+      files: 3,
+      additions: 89,
+      deletions: 0,
+      createdAt: '2026-03-05',
+    },
+    { 
+      id: 5, 
+      title: 'refactor: 重构子代理通信模块', 
+      author: '小七', 
+      authorId: 1,
+      authorAvatar: '🤖',
+      status: 'pending', 
+      repo: 'openclaw-config',
+      description: '优化子代理间消息传递，减少延迟',
+      files: 5,
+      additions: 156,
+      deletions: 78,
+      createdAt: '2026-03-06',
+    },
   ])
 
   // 计算属性
@@ -56,6 +123,15 @@ export const useWorkStore = defineStore('work', () => {
   function updateMemberStatus(id, status) {
     const member = members.value.find(m => m.id === id)
     if (member) member.status = status
+  }
+
+  function getMemberById(id) {
+    return members.value.find(m => m.id === id)
+  }
+
+  function getMemberAvatar(name) {
+    const member = members.value.find(m => m.name === name)
+    return member ? member.avatar : '👤'
   }
 
   function updateTaskStatus(id, status) {
@@ -94,5 +170,7 @@ export const useWorkStore = defineStore('work', () => {
     updateTaskStatus,
     addPoints,
     addChatMessage,
+    getMemberById,
+    getMemberAvatar,
   }
 })

@@ -1,5 +1,10 @@
 <template>
-  <div class="status-indicator" :class="status" :title="statusText">
+  <div 
+    class="status-indicator" 
+    :class="[status, { clickable: clickable }]"
+    :title="clickable ? '点击切换状态' : statusText"
+    @click="handleClick"
+  >
     <span class="dot"></span>
     <span v-if="showLabel" class="label">{{ statusText }}</span>
   </div>
@@ -11,12 +16,22 @@ import { computed } from 'vue'
 const props = defineProps({
   status: { type: String, default: 'offline' },
   showLabel: { type: Boolean, default: false },
+  clickable: { type: Boolean, default: false },
 })
+
+const emit = defineEmits(['change'])
 
 const statusText = computed(() => {
   const map = { online: '在线', offline: '离线', busy: '忙碌' }
   return map[props.status] || '离线'
 })
+
+function handleClick() {
+  if (!props.clickable) return
+  const cycle = ['online', 'busy', 'offline']
+  const next = cycle[(cycle.indexOf(props.status) + 1) % cycle.length]
+  emit('change', next)
+}
 </script>
 
 <style scoped>
@@ -24,6 +39,17 @@ const statusText = computed(() => {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+
+.clickable {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.clickable:hover {
+  background: #f3f4f6;
 }
 
 .dot {

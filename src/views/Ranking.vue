@@ -8,7 +8,7 @@
         v-for="(member, index) in store.sortedMembers" 
         :key="member.id" 
         class="ranking-item"
-        :class="{ top3: index < 3 }"
+        :class="{ top3: index < 3, leader: member.role === 'leader' }"
       >
         <div class="rank">
           <span v-if="index === 0" class="medal">🥇</span>
@@ -17,10 +17,16 @@
           <span v-else class="rank-num">{{ index + 1 }}</span>
         </div>
         
-        <div class="member-avatar">{{ member.avatar }}</div>
+        <div class="member-avatar" :class="{ leader: member.role === 'leader' }">
+          {{ member.avatar }}
+          <span v-if="member.role === 'leader'" class="crown">👑</span>
+        </div>
         
         <div class="member-info">
-          <span class="member-name">{{ member.name }}</span>
+          <div class="name-row">
+            <span class="member-name">{{ member.name }}</span>
+            <span v-if="member.role === 'leader'" class="leader-badge">项目负责人</span>
+          </div>
           <StatusIndicator :status="member.status" showLabel />
         </div>
         
@@ -39,6 +45,7 @@
           <div 
             class="points-fill" 
             :style="{ width: (member.points / maxPoints * 100) + '%' }"
+            :class="{ leader: member.role === 'leader' }"
           ></div>
         </div>
       </div>
@@ -101,6 +108,12 @@ h1 {
   border: 1px solid #fcd34d;
 }
 
+.ranking-item.leader {
+  background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 50%, #fef9c3 100%);
+  border: 2px solid #f59e0b;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
 .rank {
   width: 40px;
   text-align: center;
@@ -125,17 +138,47 @@ h1 {
   justify-content: center;
   background: #f3f4f6;
   border-radius: 10px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.member-avatar.leader {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-radius: 12px;
+}
+
+.crown {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  font-size: 14px;
 }
 
 .member-info {
   flex: 1;
+  min-width: 0;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
 .member-name {
-  display: block;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.leader-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
 }
 
 .member-stats {
@@ -149,6 +192,10 @@ h1 {
   font-weight: 700;
   color: #1f2937;
   display: block;
+}
+
+.ranking-item.leader .stat-value {
+  color: #d97706;
 }
 
 .stat-label {
@@ -166,7 +213,11 @@ h1 {
 
 .points-fill {
   height: 100%;
-  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  background: linear-gradient(90deg, #94a3b8, #cbd5e1);
   border-radius: 3px;
+}
+
+.points-fill.leader {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
 }
 </style>
