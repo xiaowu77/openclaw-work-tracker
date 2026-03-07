@@ -8,6 +8,7 @@
       <div class="name-row">
         <span class="member-name">{{ member.name }}</span>
         <span v-if="member.role === 'leader'" class="leader-badge">项目负责人</span>
+        <span v-else-if="member.roleTitle" class="role-title">{{ member.roleTitle }}</span>
       </div>
       <StatusIndicator :status="member.status" showLabel />
       <div v-if="member.status === 'busy' && member.currentTask" class="current-task">
@@ -111,6 +112,15 @@ defineProps({
   border-radius: 10px;
   font-weight: 600;
   letter-spacing: 0.5px;
+}
+
+.role-title {
+  font-size: 10px;
+  padding: 2px 8px;
+  background: #e5e7eb;
+  color: #6b7280;
+  border-radius: 10px;
+  font-weight: 500;
 }
 
 .current-task {

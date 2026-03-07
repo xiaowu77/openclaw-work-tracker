@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-03-07T11:11:37Z",
-  "updatedAtLocal": "2026-03-07 19:11:37",
+  "updatedAt": "2026-03-07T11:14:00Z",
+  "updatedAtLocal": "2026-03-07 19:14:00",
   "members": [
     {
       "id": 1,
@@ -23,6 +23,20 @@
       "status": "online",
       "role": "leader",
       "currentTask": "项目管理"
+    },
+    {
+      "id": 4,
+      "name": "白桃",
+      "avatar": "🍑",
+      "status": "busy",
+      "currentTask": "网站 UI 评估"
+    },
+    {
+      "id": 5,
+      "name": "煤球",
+      "avatar": "⚫",
+      "status": "busy",
+      "currentTask": "CI/CD 配置检查"
     }
   ]
 }

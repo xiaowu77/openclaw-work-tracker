@@ -34,6 +34,8 @@
             <option value="尼克">🦀 尼克</option>
             <option value="小七">🤖 小七</option>
             <option value="柠檬">🍋 柠檬</option>
+            <option value="白桃">🍑 白桃</option>
+            <option value="煤球">⚫ 煤球</option>
           </select>
         </div>
         <div class="type-select">
@@ -73,6 +75,8 @@ const avatarMap = {
   '尼克': '🦀',
   '小七': '🤖',
   '柠檬': '🍋',
+  '白桃': '🍑',
+  '煤球': '⚫',
 }
 
 function sendMessage() {

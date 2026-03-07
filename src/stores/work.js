@@ -7,9 +7,11 @@ const BASE_URL = import.meta.env.BASE_URL || '/'
 export const useWorkStore = defineStore('work', () => {
   // 成员状态（初始值，会被真实状态覆盖）
   const members = ref([
-    { id: 1, name: '小七', avatar: '🤖', status: 'offline', points: 85, tasksCompleted: 12, role: 'member', currentTask: '' },
-    { id: 2, name: '柠檬', avatar: '🍋', status: 'offline', points: 72, tasksCompleted: 9, role: 'member', currentTask: '' },
-    { id: 3, name: '尼克', avatar: '🦀', status: 'online', points: 95, tasksCompleted: 15, role: 'leader', currentTask: '项目管理' },
+    { id: 1, name: '小七', avatar: '🤖', status: 'offline', points: 85, tasksCompleted: 12, role: 'member', roleTitle: '后端开发', currentTask: '' },
+    { id: 2, name: '柠檬', avatar: '🍋', status: 'offline', points: 72, tasksCompleted: 9, role: 'member', roleTitle: '后端开发', currentTask: '' },
+    { id: 3, name: '尼克', avatar: '🦀', status: 'online', points: 95, tasksCompleted: 15, role: 'leader', roleTitle: '项目负责人', currentTask: '项目管理' },
+    { id: 4, name: '白桃', avatar: '🍑', status: 'busy', points: 0, tasksCompleted: 0, role: 'member', roleTitle: 'UI 设计师', currentTask: '网站 UI 评估' },
+    { id: 5, name: '煤球', avatar: '⚫', status: 'busy', points: 0, tasksCompleted: 0, role: 'member', roleTitle: 'CI/CD 工程师', currentTask: 'CI/CD 配置检查' },
   ])
 
   // 最后更新时间
@@ -56,6 +58,9 @@ export const useWorkStore = defineStore('work', () => {
     { id: 3, sender: '柠檬', avatar: '🍋', content: '明白，我来处理后端 API 部分。', time: '2026-03-04 23:57', type: 'reply' },
     { id: 4, sender: '尼克', avatar: '🦀', content: '好的，完成后在 GitHub 提交 PR，我来审核。', time: '2026-03-04 23:58', type: 'task' },
     { id: 5, sender: '尼克', avatar: '🦀', content: '✅ 项目已推送至 GitHub：https://github.com/xiaowu77/openclaw-work-tracker', time: '2026-03-07 15:05', type: 'status' },
+    { id: 6, sender: '尼克', avatar: '🦀', content: '🎉 欢迎新成员！白桃（🍑 UI 设计师）和煤球（⚫ CI/CD 工程师）已加入团队！', time: '2026-03-07 19:14', type: 'status' },
+    { id: 7, sender: '白桃', avatar: '🍑', content: '大家好！我来负责网站的 UI/UX 设计优化，让界面更好看！', time: '2026-03-07 19:15', type: 'reply' },
+    { id: 8, sender: '煤球', avatar: '⚫', content: '嗨！我来搞定 CI/CD 流水线，让部署更快更稳！', time: '2026-03-07 19:15', type: 'reply' },
   ])
 
   // 代码审核
@@ -129,6 +134,34 @@ export const useWorkStore = defineStore('work', () => {
       additions: 156,
       deletions: 78,
       createdAt: '2026-03-06',
+    },
+    { 
+      id: 6, 
+      title: 'feat: 网站 UI 设计评估报告', 
+      author: '白桃', 
+      authorId: 4,
+      authorAvatar: '🍑',
+      status: 'pending', 
+      repo: 'openclaw-work-tracker',
+      description: '提交 UI/UX 设计改进建议和视觉优化方案',
+      files: 1,
+      additions: 200,
+      deletions: 0,
+      createdAt: '2026-03-07',
+    },
+    { 
+      id: 7, 
+      title: 'feat: 优化 GitHub Actions 构建流程', 
+      author: '煤球', 
+      authorId: 5,
+      authorAvatar: '⚫',
+      status: 'pending', 
+      repo: 'openclaw-work-tracker',
+      description: '添加构建缓存、优化部署步骤、添加构建通知',
+      files: 2,
+      additions: 65,
+      deletions: 10,
+      createdAt: '2026-03-07',
     },
   ])
 
