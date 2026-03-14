@@ -1,20 +1,20 @@
 {
-  "updatedAt": "2026-03-14T15:53:56Z",
-  "updatedAtLocal": "2026-03-14 23:53:56",
+  "updatedAt": "2026-03-14T15:57:00Z",
+  "updatedAtLocal": "2026-03-14 23:57:00",
   "members": [
     {
       "id": 1,
       "name": "小七",
       "avatar": "🤖",
-      "status": "offline",
-      "currentTask": ""
+      "status": "docker",
+      "currentTask": "Docker容器运行中:18790"
     },
     {
       "id": 2,
       "name": "柠檬",
       "avatar": "🍋",
-      "status": "offline",
-      "currentTask": ""
+      "status": "docker",
+      "currentTask": "Docker容器运行中:18791"
     },
     {
       "id": 3,
